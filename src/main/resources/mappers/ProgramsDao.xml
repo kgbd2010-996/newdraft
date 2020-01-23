@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kgc.tangcco.newdraft.dao.ProgramsDao">
+
+    <select id="getProgramsContentByProgramsId" resultMap="programs">
+        select program_content from nd_programs where program_id = #{programId}
+    </select>
+
+    <resultMap id="programs" type="cn.kgc.tangcco.newdraft.entity.Programs">
+        <id property="programId" column="program_id"/>
+        <result property="programContent" column="program_content"/>
+    </resultMap>
+</mapper>

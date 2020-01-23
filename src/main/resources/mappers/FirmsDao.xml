@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kgc.tangcco.newdraft.dao.FirmsDao">
+
+    <select id="getFirmsByProgramId" resultMap="firms">
+        select nf.firms_id,firms_name,firms_introduction,firms_tel,firms_email,firms_address,firms_url from nd_firms nf
+        RIGHT JOIN mid_programs_firms mpf ON mpf.firm_id=nf.firms_id
+        RIGHT JOIN nd_programs np ON np.program_id=mpf.program_id AND np.program_id = #{programId}
+        AND nf.frims_status = 1
+    </select>
+
+    <resultMap id="firms" type="cn.kgc.tangcco.newdraft.entity.Firms">
+        <id property="firmsId" column="firms_id"/>
+        <result property="firmsName" column="firms_name"/>
+        <result property="firmsIntroduction" column="firms_introduction"/>
+        <result property="firmsTel" column="firms_tel"/>
+        <result property="firmsEmail" column="firms_email"/>
+        <result property="firmsAddress" column="firms_address"/>
+        <result property="firmsImageId" column="firms_imageId"/>
+        <result property="firmsUrl" column="firms_url"/>
+        <result property="frimsStatus" column="firms_status"/>
+    </resultMap>
+</mapper>
