@@ -25,7 +25,7 @@ import java.util.List;
  * @package cn.kgc.tangcco.newdraft.controller
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class IndexInitController {
 
     @Autowired
