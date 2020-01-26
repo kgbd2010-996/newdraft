@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>新闻中心</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/news.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2.0.0-rc.2"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<!--#include file="header.html" -->
+<div id="app">
+    <div class="w100 fl mianbao">
+        <div class="w1200 fz">
+            <div class="mianbao_tubiao fl"></div>
+            <div class="mianbao_wz fl">首页 >
+
+                <a href="#" target="_blank">新闻中心</a>
+            </div>
+        </div>
+    </div>
+    <div class="w100 lieibao_z_k fl">
+        <div class="w1200 fz">
+            <!--左侧-->
+            <div class="lieibao_zuo fl">
+                <div class="liebiao_zuo_bt fl">
+
+                </div>
+                <div class="lieibao_zuo_nr_k fl">
+
+                    <div class="liebiao_z_k fl">
+                        <div class="liebiao_neirong fl">
+                            <ul>
+                                <li v-for="(eachNews,index) in newsList"><a href="#">{{eachNews.newsTitle}}</a> <span
+                                        style="float:right;">[{{dateFormat(eachNews.newsCreatedTime)}}]</span></li>
+                            </ul>
+                        </div>
+
+                        <!--fenye-->
+                        <div class="fenye fl">
+                            <div class="fenye_nr fl">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--左侧结束-->
+            <!--右侧-->
+            <div class="lieibao_you fl">
+                <div class="lieibao_you_bq fl">热门标签</div>
+                <div class="liebiao_you_bq_k fl">
+                    <ul>
+                        <li class="tags_bg5"><a href="javascript:;">留学免费申请</a></li>
+                        <li class="tags_bg5"><a href="javascript:;">50万移民澳洲</a></li>
+                        <li class="tags_bg2"><a href="javascript:;">移民仅需50万</a></li>
+                        <li class="tags_bg3"><a href="javascript:;">澳洲移民途径</a></li>
+                        <li class="tags_bg5"><a href="javascript:;">澳洲投资移民</a></li>
+                        <li class="tags_bg1"><a href="javascript:;">政府背书移民</a></li>
+                        <li class="tags_bg2"><a href="javascript:;">澳洲留学移民</a></li>
+                        <li class="tags_bg3"><a href="javascript:;">澳洲快速移民</a></li>
+                        <li class="tags_bg3"><a href="javascript:;">澳大利亚签证</a></li>
+                        <li class="tags_bg1"><a href="javascript:;">澳洲购房移民</a></li>
+                        <li class="tags_bg2"><a href="javascript:;">澳大利亚投资</a></li>
+                        <li class="tags_bg3"><a href="javascript:;">188 投资移民</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--右侧结束-->
+        </div>
+    </div>
+
+    <div class="w100 fl mt-20"></div>
+</div>
+<div style="clear: both"></div>
+<!--#include file="footer.html" -->
+<script src="js/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/news.js"></script>
+</body>
+</html>

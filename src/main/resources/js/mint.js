@@ -76,7 +76,7 @@ var vue = new Vue({     //创建一个Vue的实例
         //初始化数据
         init: function () {
             var _this = this;
-            axios.get("http://localhost:80/indexInit").then(function (response) {
+            axios.get("http://39.105.20.225:8081/indexInit").then(function (response) {
                 var map = JSON.parse(response.data.data)
                 console.log(map)
                 _this.programs = map.programsContent;
@@ -111,7 +111,6 @@ var vue = new Vue({     //创建一个Vue的实例
     mounted(){
         //刷新当前用户
        // this.refresh_user()
-
 
     }
 })

@@ -3,11 +3,12 @@
 <mapper namespace="cn.kgc.tangcco.newdraft.dao.ProgramsDao">
 
     <select id="getProgramsContentByProgramsId" resultMap="programs">
-        select program_content from nd_programs where program_id = #{programId}
+        select program_content,program_comment from nd_programs where program_id = #{programId}
     </select>
 
     <resultMap id="programs" type="cn.kgc.tangcco.newdraft.entity.Programs">
         <id property="programId" column="program_id"/>
         <result property="programContent" column="program_content"/>
+        <result property="programComment" column="program_comment"/>
     </resultMap>
 </mapper>
