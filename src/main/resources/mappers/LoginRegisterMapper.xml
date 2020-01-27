@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kgc.tangcco.newdraft.dao.LoginRegisterDao">
+
+
+    <select id="getUsersByPhone" resultType="cn.kgc.tangcco.newdraft.entity.VO.UserVO" resultMap="getUsers">
+       select * from nd_users where user_phone = #{phone};
+    </select>
+
+    <select id="getUsersByUserWebName" resultType="cn.kgc.tangcco.newdraft.entity.VO.UserVO" resultMap="getUsers">
+        select * from nd_users where user_web_name = #{userWebName}
+    </select>
+
+    <resultMap id="getUsers" type="cn.kgc.tangcco.newdraft.entity.VO.UserVO">
+        <result property="userId" column="user_id"/>
+        <result property="userWebName" column="user_web_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userPassword" column="user_password"/>
+        <result property="userWechart" column="user_wechart"/>
+        <result property="userRole" column="user_role"/>
+        <result property="userStatus" column="user_status"/>
+    </resultMap>
+<!--这里好像写错了 可以留着当根据手机号判断是否存在店铺
+    <select id="getUsersByPhone" resultType="cn.kgc.tangcco.newdraft.entity.Users" resultMap="getUsers">
+        select nu.*,nf.* from nd_users nu, mid_clients_firms mcf,nd_firms nf
+        <where>
+            nu.user_id = mcf.client_id
+            and mcf.firms_id = nf.firms_id
+            and user_phone = #{phone}
+        </where>
+    </select>-->
+<!-- 和俩写错的是配套的
+    <resultMap id="getUsers" type="cn.kgc.tangcco.newdraft.entity.Users">
+        <result property="userId" column="user_id"/>
+        <result property="userWebName" column="user_web_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userPassword" column="user_password"/>
+        <result property="userWechart" column="user_wechart"/>
+        <result property="userRole" column="user_role"/>
+        <result property="userStatus" column="user_status"/>
+        <collection property="firmsList" ofType="cn.kgc.tangcco.newdraft.entity.Firms">
+            <result property="firmsId" column="firms_id" />
+            <result property="firmsName" column="firms_name" />
+            <result property="firmsIntroduction" column="firms_introduction" />
+            <result property="firmsTel" column="firms_tel" />
+            <result property="firmsEmail" column="firms_email" />
+            <result property="firmsAddress" column="firms_address" />
+            <result property="firmsImageId" column="firms_imageId" />
+            <result property="firmsUrl" column="firms_url" />
+            <result property="frimsStatus" column="frims_status" />
+        </collection>
+    </resultMap>-->
+
+<!--
+    这里好像写错了 可以留着当根据用户名判断是否存在店铺
+    <select id="getUsersByUserWebName" resultType="cn.kgc.tangcco.newdraft.entity.Users" resultMap="getUsers">
+        select nu.*,nf.* from nd_users nu, mid_clients_firms mcf,nd_firms nf
+        <where>
+            nu.user_id = mcf.client_id
+            and mcf.firms_id = nf.firms_id
+            and user_web_name = #{userWebName}
+        </where>
+    </select>
+    -->
+
+    <insert id="addUsers">
+        insert into nd_users values(#{users.userId},#{users.userWebName},#{users.tel},#{users.passport},null,#{users.role},1);
+    </insert>
+</mapper>
