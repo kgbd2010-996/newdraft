@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>用户注册</title>
+    <meta name="Keywords" content="网站关键词">
+    <meta name="Description" content="网站介绍">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/reg.css">
+</head>
+<body>
+<div id="ajax-hook"></div>
+<div class="wrap">
+    <div class="wpn">
+        <div class="form-data pos">
+            <a href=""><img src="img/logo.png" class="head-logo"></a>
+            <!--<p class="tel-warn hide"><i class="icon-warn"></i></p>-->
+            <form>
+                <p class="p-input pos">
+                    <label for="username">输入用户名</label>
+                    <input type="text" id="username" autocomplete="off">
+                    <span class="tel-warn username-err hide"><em></em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos">
+                    <label for="tel">输入手机号</label>
+                    <input type="number" id="tel" autocomplete="off">
+                    <span class="tel-warn tel-err hide"><em></em><i class="icon-warn"></i></span>
+                </p>
+                <p class="p-input pos" id="sendcode">
+                    <label for="veri-code">输入验证码</label>
+                    <input type="number" id="veri-code">
+                    <a href="javascript:;" class="send">发送验证码</a>
+                    <span class="time hide"><em>120</em>s</span>
+                    <span class="tel-warn error hide"><em>111</em><i class="icon-warn" style="margin-left: 5px"></i></span>
+                </p>
+                <p class="p-input pos" id="pwd">
+                    <label for="passport">输入密码</label>
+                    <input type="password" style="display: none"/>
+                    <input type="password" id="passport">
+                    <span class="tel-warn pwd-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
+                </p>
+                <p class="p-input pos" id="confirmpwd">
+                    <label for="passport2">确认密码</label>
+                    <input type="password" style="position:absolute;top:-998px"/>
+                    <input type="password" id="passport2">
+                    <span class="tel-warn confirmpwd-err hide"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
+                </p>
+                <div class="p-input pos" id="userrole" style="border-bottom:none;margin-bottom: 0px";>
+                    <div class="pos" style="left: 100px">
+                        <div style="float: left;margin-right:50px;">
+                            <label for="role1" style="position:static">
+                                <input type="radio" id="role1" value="1" name="role" style="width: 13px; position:static"/>
+                                客户
+                            </label>
+                        </div>
+                        <div style="float: left;">
+                            <label for="role2" style="position:static">
+                                <input type="radio" id="role2" value="2" name="role" style="width: 13px; position:static"/>
+                                商家
+                            </label>
+                        </div>
+                    </div>
+                    <span class="tel-warn role-err pos hide" style="top: 5px"><em></em><i class="icon-warn" style="margin-left: 5px"></i></span>
+                </div>
+            </form>
+            <button class="lang-btn off" style="margin-top: 0px">注册</button>
+            <div class="bottom-info">已有账号，<a href="./login.html">马上登录</a></div>
+            <div class="third-party">
+                <a href="#" class="log-qq icon-qq-round"></a>
+                <a href="#" class="log-qq icon-weixin"></a>
+                <a href="#" class="log-qq icon-sina1"></a>
+            </div>
+            <p class="right">Powered by © 2019</p>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/agree.js"></script>
+<script src="js/reg.js"></script>
+</body>
+</html>

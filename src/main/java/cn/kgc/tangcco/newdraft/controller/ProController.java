@@ -1,10 +1,10 @@
 package cn.kgc.tangcco.newdraft.controller;
 
 
+import cn.kgc.tangcco.newdraft.entity.Result;
 import cn.kgc.tangcco.newdraft.service.ProService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program: newdraft
@@ -22,4 +22,35 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProController {
     @Autowired
     private ProService proService;
+
+    @RequestMapping("/isLogin")
+    public Result isLogin(String token) {
+        Result result = new Result();
+        String json = proService.isLogin(token);
+        if (null==json) {
+            result.setCode(2002);
+            result.setMessage("获取失败");
+            return result;
+        }
+        result.setCode(2001);
+        result.setMessage("获取user对象成功");
+        result.setData(json);
+        return result;
+    }
+
+    @RequestMapping("/resetToken")
+    public Result resetToken(String token) {
+        Result result = new Result();
+        boolean flag = proService.resetToken(token);
+        if (!flag) {
+            result.setCode(2002);
+            result.setMessage("刷新失败！");
+            result.setData("fail");
+            return result;
+        }
+        result.setCode(2001);
+        result.setMessage("刷新成功！");
+        result.setData("success");
+        return result;
+    }
 }

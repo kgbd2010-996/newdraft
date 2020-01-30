@@ -40,4 +40,9 @@ public class NewsServiceImpl implements NewsService {
     public List<News> getNewsByCreatedTime() {
         return newsDao.getNewsByCreatedTime();
     }
+
+    @Override
+    public String getAuthor(Integer newsId) {
+        return newsDao.getAuthor(newsId);
+    }
 }

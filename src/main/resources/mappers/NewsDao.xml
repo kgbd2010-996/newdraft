@@ -19,8 +19,12 @@
         select news_id,news_title,news_content,news_createdTime from nd_news
         order by news_level desc,news_index desc,news_createdTime desc limit 1,3
     </select>
-    
-    <resultMap id="news" type="cn.kgc.tangcco.newdraft.entity.News">
+
+    <select id="getAuthor" resultType="string">
+        select f.firms_name from nd_news n join mid_news_firms mnf on n.news_id = mnf.news_id join nd_firms f on
+        mnf.firm_id=f.firms_id where n.news_id=#{newsId} and n.news_type=2
+    </select>
+    <resultMap id="news" type="News">
         <id property="newsId" column="news_id"/>
         <result property="newsType" column="news_type"/>
         <result property="newsTitle" column="news_title"/>
@@ -32,16 +36,16 @@
         <result property="newsLevel" column="news_level"/>
         <result property="newsIndex" column="news_index"/>
         <result property="newsStatus" column="news_status"/>
-<!--        <association property="firms" javaType="cn.kgc.tangcco.newdraft.entity.Firms">-->
-<!--            <id property="firmsId" column="firms_id"/>-->
-<!--            <result property="firmsName" column="firms_"/>-->
-<!--            <result property="firmsIntroduction" column="firms_introduction"/>-->
-<!--            <result property="firmsTel" column="firms_tel"/>-->
-<!--            <result property="firmsEmail" column="firms_email"/>-->
-<!--            <result property="firmsAddress" column="firms_address"/>-->
-<!--            <result property="firmsImageId" column="firms_imageId"/>-->
-<!--            <result property="firmsUrl" column="firms_url"/>-->
-<!--            <result property="frimsStatus" column="firms_status"/>-->
-<!--        </association>-->
+        <!--<association property="firms" javaType="Firms">
+            <id property="firmsId" column="firms_id"/>
+            <result property="firmsName" column="firms_"/>
+            <result property="firmsIntroduction" column="firms_introduction"/>
+            <result property="firmsTel" column="firms_tel"/>
+            <result property="firmsEmail" column="firms_email"/>
+            <result property="firmsAddress" column="firms_address"/>
+            <result property="firmsImageId" column="firms_imageId"/>
+            <result property="firmsUrl" column="firms_url"/>
+            <result property="frimsStatus" column="firms_status"/>
+        </association>-->
     </resultMap>
 </mapper>

@@ -2,17 +2,13 @@ var vue = new Vue({     //创建一个Vue的实例
     el:"#app",  //挂载点是id="app"的地方
     data:{
         keyword:'',
-        logined:true, //判断是否登录
+        logined:false, //判断是否登录
         programs:{
             programContent:'',
             programStatus:''
         },
         firms:{},
-        user:{
-            user_id:'',
-            user_web_name: '13840084349',
-            user_role:''
-        },
+        user:{},
         news:{},
         newsList:{}
     },
@@ -30,64 +26,79 @@ var vue = new Vue({     //创建一个Vue的实例
         logout: function () {
             this.$confirm('确认退出吗?', '提示', {
             }).then(() => {
-                //跳转到统一登陆
+                sessionStorage.removeItem("user");
+                sessionStorage.removeItem("token");
+                //跳转到首页
                 window.location = "index.html"
             }).catch(() => {
 
             });
         },
-        getUser: function(token){
-            var _this=this;
-            axios.post("http://localhost/isLogin",{
-                params:{
-                    token: token
-                }
-            }).then(function (response) {
-                _this.user = response.data;
-            }).catch(function (err) {
-                console.log(err)
-            })
+        showPro: function () {
+            $(".notice").css("display","block");
+        },
+        hiddenPro: function () {
+            $(".notice").css("display","none");
         },
         resetToken: function (token) {
-            axios.get("http://localhost/resetToken").then(function (response) {
-
+            var params = new URLSearchParams();
+            params.append('token', token);
+            axios.post("http://localhost:8081/resetToken",params,{
+                headers: {
+                    Authorization:token
+                }
+            }).then((response)=> {
+                console.log(response.data.message)
             })
         },
         refresh_user:function(){
             //从sessionStorage中取出当前用户
-            let activeUser= sessionStorage.getItem("user");
+            let activeUser= JSON.parse(sessionStorage.getItem("user"));
             //取出sessionStorage中的token
             let token = sessionStorage.getItem("token");
-            //通过token获取缓存中的用户
-            this.getUser(token);
-            console.log(this.user)
-            if(activeUser !=null && this.user.user_id !=null && this.user.user_id == activeUser.uid){
-                this.logined = true;
-                this.user = activeUser;
-                this.resetToken(token)
-            }
+            //判断是不是空
             if (activeUser == null || token == null) {
                 this.logined =false;
             }
-        },
-        firm: function(index){
-            return "firm"+index+1;
+            //通过token获取缓存中的用户
+            var params = new URLSearchParams();
+            params.append('token', token);
+            axios.post("http://localhost:8081/isLogin",params,{
+                headers: {
+                    Authorization:token,
+                }
+            }).then((response)=>{
+                console.log(response.data.code)
+                if (response.data.code == '3002' || response.data.code == '3003') {
+                    console.log("跳转登录")
+                    //window.location.href = "user_loginreg/login.html";
+                }
+                this.user = JSON.parse(response.data.data);
+                if(this.user.userId == activeUser.userId){
+                    console.log("判断成功")
+                    this.logined = true;
+                    this.user = activeUser;
+                }
+                console.log(this.user)
+            }).catch(function (err) {
+                console.log(err)
+            })
+            this.resetToken(token);
         },
         //初始化数据
         init: function () {
-            var _this = this;
-            axios.get("http://39.105.20.225:8081/indexInit").then(function (response) {
+            axios.post("http://localhost:8081/indexInit").then((response) =>{
                 var map = JSON.parse(response.data.data)
-                console.log(map)
-                _this.programs = map.programsContent;
-                console.log(_this.programs.programContent)
-                _this.firms = map.firmsByProgramId;
-                console.log(_this.firms)
-                _this.news = map.newestNews;
-                console.log(_this.news)
-                _this.newsList = map.newsByCreatedTime;
-                console.log(_this.newsList)
+                this.programs = map.programsContent;
+                this.firms = map.firmsByProgramId;
+                this.news = map.newestNews;
+                this.newsList = map.newsByCreatedTime;
+
             })
+        },
+        getNews: function (newsId) {
+            localStorage.setItem("newsId",newsId);
+            window.location.href = "newsContent.html"
         },
         //时间格式化函数，此处仅针对yyyy-MM-dd hh:mm:ss 的格式进行格式化
         dateFormat:function(time) {
@@ -110,7 +121,6 @@ var vue = new Vue({     //创建一个Vue的实例
     },
     mounted(){
         //刷新当前用户
-       // this.refresh_user()
-
+        this.refresh_user();
     }
 })

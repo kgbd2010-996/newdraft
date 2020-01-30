@@ -22,4 +22,6 @@ public interface NewsDao {
 
     List<News> getNewsByCreatedTime();
 
+    String getAuthor(@Param("newsId") Integer newsId);
+
 }

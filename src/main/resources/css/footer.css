@@ -1,0 +1,8 @@
+#footer{background-color:#3c383f}
+#footer .biaoti1{width:335px; line-height:30px;vertical-align:middle; font-family:"微软雅黑"; font-size:20px; color:#fff; font-weight:bold}
+#footer .text1{width:335px; line-height:30px;vertical-align:middle; font-family:"微软雅黑"; font-size:14px; color:#fff; margin-top:15px;}
+#footer .biaoti2{margin-left:40px;width:335px; line-height:30px;vertical-align:middle; font-family:"微软雅黑"; font-size:20px; color:#fff; font-weight:bold}
+#footer .text2{margin-left:40px;width:335px; line-height:30px;vertical-align:middle; font-family:"微软雅黑"; font-size:14px; color:#fff; margin-top:15px;}
+#footer a{ line-height:30px;vertical-align:middle; font-family:"微软雅黑"; font-size:14px; color:#fff; margin-top:15px;text-decoration: none}
+#footer a:hover{ color:#fe8700}
+#footer .beian{width:1200px; height:65px; line-height:65px; vertical-align:middle; font-family:"微软雅黑"; font-size:14px; color:#fff; text-align:center;border-top: white 1px solid;margin-top: 20px}

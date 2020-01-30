@@ -20,12 +20,12 @@
             </div>
             <div class="col-xl-4 offset-xl-5" v-if="logined==false">
                 <img src="images/tel.png">
-                <a href="javascript:;" @click="login"  class="login" >注册</a>
-                <a href="javascript:;" @click="register"  class="register" >登录</a>
+                <a href="user_loginreg/reg.html"   class="login" >注册</a>
+                <a href="user_loginreg/login.html" class="register" >登录</a>
             </div>
             <div class="col-xl-5 offset-xl-4" v-if="logined==true">
                 <img src="images/tel.png">
-                <span class="welcome">欢迎{{this.user.user_web_name}}</span>
+                <span class="welcome">欢迎{{user.userWebName}}</span>
                 <a href="#" class="personal" >个人中心</a>
                 <a href="javascript:;" @click="logout"  class="logout">退出</a>
             </div>
@@ -77,13 +77,13 @@
             <div class="col-xl-4 program">
                 <nav class="navbar" style="margin-top: -8px">
                     <ul class="navbar-nav">
-                        <li class="nav-item js">
+                        <li class="nav-item js" @mouseover="showPro" @mouseout="hiddenPro">
                             <a class="nav-link" href="#" style="padding: 0px"><span class="pro">项目背景</span>Project Background<span class="pan">></span></a>
                         </li>
-                        <li class="nav-item js">
+                        <li class="nav-item js" @mouseover="showPro" @mouseout="hiddenPro">
                             <a class="nav-link" href="#" style="padding: 0px"><span class="pro">项目优势</span>Project Advantage<span class="pan">></span></a>
                         </li>
-                        <li class="nav-item js">
+                        <li class="nav-item js" @mouseover="showPro" @mouseout="hiddenPro">
                             <a class="nav-link" href="#" style="padding: 0px"><span class="pro">项目XX</span>Project Background<span class="pan">></span></a>
                         </li>
                     </ul>
@@ -169,7 +169,7 @@
             <div class="col-xl-6 letf">
                 <div class="date" id="newestNewsTime">{{dateFormat(news.newsCreatedTime)}}</div>
                 <div class="newstitle">
-                    <a :href="'#'+news.newsId" id="newestNewsTitle">{{news.newsTitle}}</a>
+                    <a href="javascript:void(0)" @click="getNews(news.newsId)" id="newestNewsTitle">{{news.newsTitle}}</a>
                 </div>
                 <div class="desc" id="newestNewsContent">{{news.newsContent}}</div>
                 <div class="picture">
@@ -177,10 +177,11 @@
                 </div>
             </div>
             <div class="col-xl-6 right">
+
                 <ul class="newslist" id="indexNews">
                     <li v-for="(eachNews,index) in newsList">
                         <div class="newstitle">
-                            <a :href="'#'+eachNews.newsId">{{eachNews.newsTitle}}</a>
+                            <a href="javascript:void(0)" @click="getNews(eachNews.newsId)">{{eachNews.newsTitle}}</a>
                             <p class="date">{{dateFormat(eachNews.newsCreatedTime)}}</p>
                         </div>
                         <div class="desc">
@@ -211,6 +212,7 @@
             </div>
         </div>
     </div>
+    <div style="clear: both"></div>
     <div class="footer" id="footer">
         <div class="container" style="padding-top: 80px">
             <div class="row">
@@ -262,18 +264,10 @@
     </div>
 </div>
 <script src="js/vue.js"></script>
+<script src="https://unpkg.com/vue-router@2.6.0/dist/vue-router.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="js/axios-0.18.0.js"></script>
 <script src="js/mint.js"></script>
-<script type="text/javascript">
-$(function () {
-    $(".js").mouseover(function () {
-        $(".notice").css("display","block");
-    })
-    $(".js").mouseout(function () {
-        $(".notice").css("display","none");
-    })
-})
-</script>
+<script type="text/javascript"></script>
 </body>
 </html>

@@ -18,8 +18,8 @@
         <div class="w1200 fz">
             <div class="mianbao_tubiao fl"></div>
             <div class="mianbao_wz fl">首页 >
-                <a href="javascript:;">新闻中心</a> >
-                <a href="javascript:;"> 新闻内容</a>
+                <a href="news.html">新闻中心</a> >
+                <a href="#"> 新闻内容</a>
             </div>
         </div>
     </div>
@@ -32,10 +32,11 @@
                         <!--neirong-->
                         <div class="neirong_k fl">
 
-                            <div class="neirong_biaoti fl">【ABB1】恭喜L女士获得澳洲投资移民签证</div>
+                            <div class="neirong_biaoti fl">{{news.newsTitle}}</div>
                             <div class="neirong_bq fl">
                                 <ul>
-                                    <li>本文作者：{{news.newsOwner}}</li>
+                                    <li v-if="news.newsType==1">本文作者：管理员</li>
+                                    <li v-if="news.newsType==2">本文作者：{{author}}</li>
                                     <li>观看人数：99</li>
                                     <li>点赞人数：99</li>
                                     <li>发布时间：{{dateFormat(news.newsCreatedTime)}}</li>

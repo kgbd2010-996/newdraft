@@ -19,7 +19,7 @@
             <div class="mianbao_tubiao fl"></div>
             <div class="mianbao_wz fl">首页 >
 
-                <a href="#" target="_blank">新闻中心</a>
+                <a href="#">新闻中心</a>
             </div>
         </div>
     </div>
@@ -35,11 +35,13 @@
                     <div class="liebiao_z_k fl">
                         <div class="liebiao_neirong fl">
                             <ul>
-                                <li v-for="(eachNews,index) in newsList"><a href="#">{{eachNews.newsTitle}}</a> <span
-                                        style="float:right;">[{{dateFormat(eachNews.newsCreatedTime)}}]</span></li>
+                                <li v-for="(eachNews,index) in newsList">
+                                    <a href="javascript:void(0)" @click="getNews(eachNews.newsId)">{{eachNews.newsTitle}}</a>
+                                    <span style="float:right;">[{{dateFormat(eachNews.newsCreatedTime)}}]</span>
+                                </li>
                             </ul>
                         </div>
-
+                        <div style="clear: both"></div>
                         <!--fenye-->
                         <div class="fenye fl">
                             <div class="fenye_nr fl">
