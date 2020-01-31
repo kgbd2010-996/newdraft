@@ -1,6 +1,7 @@
 var vue = new Vue({     //创建一个Vue的实例
     el:"#app",  //挂载点是id="app"的地方
     data:{
+        url:sessionStorage.getItem('url'),
         keyword:'',
         logined:false, //判断是否登录
         programs:{
@@ -43,7 +44,7 @@ var vue = new Vue({     //创建一个Vue的实例
         resetToken: function (token) {
             var params = new URLSearchParams();
             params.append('token', token);
-            axios.post("http://localhost:8081/resetToken",params,{
+            axios.post(this.url+"resetToken",params,{
                 headers: {
                     Authorization:token
                 }
@@ -63,7 +64,7 @@ var vue = new Vue({     //创建一个Vue的实例
             //通过token获取缓存中的用户
             var params = new URLSearchParams();
             params.append('token', token);
-            axios.post("http://localhost:8081/isLogin",params,{
+            axios.post(this.url+"isLogin",params,{
                 headers: {
                     Authorization:token,
                 }
@@ -87,7 +88,7 @@ var vue = new Vue({     //创建一个Vue的实例
         },
         //初始化数据
         init: function () {
-            axios.post("http://localhost:8081/indexInit").then((response) =>{
+            axios.post(this.url+"indexInit").then((response) =>{
                 var map = JSON.parse(response.data.data)
                 this.programs = map.programsContent;
                 this.firms = map.firmsByProgramId;

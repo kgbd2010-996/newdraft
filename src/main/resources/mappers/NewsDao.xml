@@ -6,6 +6,14 @@
         select * from nd_news
     </select>
 
+    <select id="getTotal" resultType="integer">
+        select count(1) from nd_news
+    </select>
+
+    <select id="getPageNews" resultMap="news">
+        select * from nd_news order by news_level desc,news_index desc,news_createdTime desc limit #{start},#{end}
+    </select>
+
     <select id="getNewsById" resultMap="news">
         select * from nd_news where news_id = #{newsId}
     </select>
@@ -24,6 +32,17 @@
         select f.firms_name from nd_news n join mid_news_firms mnf on n.news_id = mnf.news_id join nd_firms f on
         mnf.firm_id=f.firms_id where n.news_id=#{newsId} and n.news_type=2
     </select>
+
+    <select id="getIndex" resultType="integer">
+        select (num1+num2+num3) from (select count(*)as num1 from nd_news where news_level &gt;(select news_level from nd_news where news_id=#{newsId})) as a,
+        (select count(*)as num2 from nd_news where news_level=(select news_level from nd_news where news_id=#{newsId}) and news_index &gt;(select news_index from nd_news where news_id=#{newsId}))as b,
+        (select count(*)as num3 from nd_news where news_level=(select news_level from nd_news where news_id=#{newsId}) and news_index = (select news_index from nd_news where news_id=#{newsId}) and news_createdTime &gt;(select news_createdTime from nd_news where news_id=#{newsId}))as c
+    </select>
+
+    <select id="getPreNextNews" resultMap="news">
+        select * from nd_news order by news_level desc,news_index desc,news_createdTime desc limit #{index},1
+    </select>
+
     <resultMap id="news" type="News">
         <id property="newsId" column="news_id"/>
         <result property="newsType" column="news_type"/>

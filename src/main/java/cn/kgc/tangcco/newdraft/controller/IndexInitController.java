@@ -77,17 +77,31 @@ public class IndexInitController {
         return result;
     }
 
+    @RequestMapping("/getPageNews")
+    public Result getPageNews(Integer currentPage, Integer pagesize) {
+        Result result = new Result();
+        Map<String, Object> map = newsService.getPageNews(currentPage, pagesize);
+        result.setCode(2001);
+        result.setMessage("获取成功");
+        result.setData(JSON.toJSONString(map));
+        return result;
+    }
+
     @RequestMapping("/getNewsById")
     public Result getNewsById(Integer newsId) {
         Result result = new Result();
         Map<String, Object> map = new HashMap<>();
         News news = newsService.getNewsById(newsId);
+        News preNews = newsService.getPreNews(newsId);
+        News nextNews = newsService.getNextNews(newsId);
         if (null == news) {
             result.setCode(2002);
             result.setMessage("获取失败");
             return result;
         }
         map.put("news", news);
+        map.put("preNews",preNews);
+        map.put("nextNews",nextNews);
         result.setCode(2001);
         result.setMessage("获取成功");
         result.setData(JSON.toJSONString(map));

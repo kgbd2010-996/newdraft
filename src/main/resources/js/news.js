@@ -1,7 +1,12 @@
 var vue = new Vue({     //创建一个Vue的实例
     el:"#app",  //挂载点是id="app"的地方
     data:{
-        newsList:{}
+        url:sessionStorage.getItem('url'),
+        newsList:{},
+        currentPage:1,
+        pagesize:5,
+        pageNews:{},
+        totalPage:0
     },
     methods:{
         search: function() {
@@ -9,17 +14,22 @@ var vue = new Vue({     //创建一个Vue的实例
                 // window.location = "/mint/search"
                 console.log(this.keyword);
             } else {
-                let keyword = encodeURIComponent(this.keyword)
+                let keyword = encodeURIComponent(this.keyword);
                 // window.location = "/mint/search?keyword="+keyword
                 console.log(keyword);
             }
         },
         //初始化数据
         xinwen: function () {
-            axios.post("http://localhost:8081/getAllNews").then((response) =>{
-                var map = JSON.parse(response.data.data)
-                console.log(map)
-                this.newsList = map.newsList;
+            var params = new URLSearchParams();
+            params.append("currentPage",this.currentPage);
+            params.append("pagesize",this.pagesize);
+            axios.post(this.url+"getPageNews",params).then((response) =>{
+                var map = JSON.parse(response.data.data);
+                console.log(map);
+                this.pageNews = map.pageNews;
+                this.totalPage = map.total;
+                console.log("总页数："+this.totalPage)
             })
         },
         getNews: function (newsId) {
@@ -40,6 +50,17 @@ var vue = new Vue({     //创建一个Vue的实例
             var seconds=date.getSeconds()<10 ? "0"+date.getSeconds() : date.getSeconds();
             // 拼接
             return year+"-"+month+"-"+day;
+        },
+        // 初始页currentPage、初始每页数据数pagesize和数据data
+        handleSizeChange: function (size) {
+            this.pagesize = size;
+            console.log(this.pagesize)  //每页下拉显示数据
+            this.xinwen();
+        },
+        handleCurrentChange: function(currentPage){
+            this.currentPage = currentPage;
+            console.log(this.currentPage)  //点击第几页
+            this.xinwen();
         }
     },
     created() {

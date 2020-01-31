@@ -9,6 +9,7 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2.0.0-rc.2"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/server.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
 <body>
@@ -64,10 +65,13 @@
                         <div class="neirong_qianhou fl">
                             <div class="neirong_qian fl">
                                 <span>上一篇：</span>
-                                <a href="#">【ABB1】恭喜W先生获得澳洲投资移民签证</a>
+                                <a href="javascript:void(0)" @click="getNews(preNews.newsId)" v-if="preNews !=null ">{{preNews.newsTitle}}</a>
+                                <a href="javascript:void(0)"  v-if="preNews ==null ">这是第一篇</a>
                             </div>
                             <div class="neirong_hou fl">
-                                <a href="#"><span>下一篇：</span>恭喜L先生喜获188B投资移民签证</a>
+                                <span>下一篇：</span>
+                                <a href="javascript:void(0)" @click="getNews(nextNews.newsId)" v-if="nextNews !=null ">{{nextNews.newsTitle}}</a>
+                                <a href="javascript:void(0)"  v-if="nextNews ==null ">这是最后一篇</a>
                             </div>
                         </div>
 

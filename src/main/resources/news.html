@@ -9,6 +9,7 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2.0.0-rc.2"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/server.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
 <body>
@@ -35,7 +36,7 @@
                     <div class="liebiao_z_k fl">
                         <div class="liebiao_neirong fl">
                             <ul>
-                                <li v-for="(eachNews,index) in newsList">
+                                <li v-for="(eachNews,index) in pageNews">
                                     <a href="javascript:void(0)" @click="getNews(eachNews.newsId)">{{eachNews.newsTitle}}</a>
                                     <span style="float:right;">[{{dateFormat(eachNews.newsCreatedTime)}}]</span>
                                 </li>
@@ -44,8 +45,17 @@
                         <div style="clear: both"></div>
                         <!--fenye-->
                         <div class="fenye fl">
-                            <div class="fenye_nr fl">
-
+                            <div class="fenye_nr">
+                                    <!-- 分页 -->
+                                    <el-pagination
+                                            @size-change="handleSizeChange"
+                                            @current-change="handleCurrentChange"
+                                            :current-page="currentPage"
+                                            :page-sizes="[5,10,20,30]"
+                                            :page-size="pagesize"
+                                            layout="total, sizes, prev, pager, next, jumper"
+                                            :total="totalPage">
+                                    </el-pagination>
                             </div>
                         </div>
 

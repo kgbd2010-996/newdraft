@@ -38,7 +38,7 @@ $(function(){
 		} 
 		var status = true;
 
-		$.post(getRootPath() + "/isUsernameExists",{
+		$.post(getRootPath() + "isUsernameExists",{
 			username:username
 		},function(data){
 			if (data.code == 2002) {
@@ -161,7 +161,7 @@ $(function(){
 
 			if(checkUsername(username) & checkTel(tel) & checkCode(veri_code) & checkPassport(passport) & checkPassport2(passport,passport2) & checkRole(role)){
 				//发起注册请求
-				$.post(getRootPath() + "/register",{
+				$.post(getRootPath() + "register",{
 					userWebName:username,
 					userPhone:tel,
 					userPassword:passport,
@@ -182,21 +182,17 @@ $(function(){
 	}
 
 	function getRootPath() {
-		/*//获取当前网址，如： http://localhost:8088/test/test.jsp
-		var curPath = window.document.location.href;
-		//获取主机地址之后的目录，如： test/test.jsp
-		var pathName = window.document.location.pathname;
-		var pos = curPath.indexOf(pathName);
-		//获取主机地址，如： http://localhost:8088
-		var localhostPath = curPath.substring(0, pos);
-		return (localhostPath);*/
-		return "http://localhost:8081";
+		var url = "";
+		$.get('../serverConfig.json',function (data) {
+			url = data.protocol + data.domain + data.port +data.context;
+		});
+		return url;
 	}
 	
 	$(".form-data").delegate(".send","click",function () {
 		var tel = $.trim($('#tel').val());
 		if (checkTel(tel)) {
-			$.post(getRootPath() + "/sendRandomNumber",{
+			$.post(getRootPath() + "sendRandomNumber",{
 				phone:tel
 			},function(data){
 				if (data.code == 2002) {

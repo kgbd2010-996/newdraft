@@ -1,6 +1,7 @@
 var vue = new Vue({     //创建一个Vue的实例
     el:"#app",  //挂载点是id="app"的地方
     data:{
+        url:sessionStorage.getItem('url'),
         programs:{
             programContent:'',
             programStatus:''
@@ -10,14 +11,11 @@ var vue = new Vue({     //创建一个Vue的实例
     methods:{
         //初始化数据
         jigou: function () {
-            var _this = this;
-            axios.get("http://39.105.20.225:8081/indexInit").then(function (response) {
+            axios.get(this.url+"indexInit").then((response) =>{
                 var map = JSON.parse(response.data.data)
                 console.log(map)
-                _this.programs = map.programsContent;
-                console.log(_this.programs.programContent)
-                _this.firms = map.firmsByProgramId;
-                console.log(_this.firms)
+                this.programs = map.programsContent;
+                this.firms = map.firmsByProgramId;
             })
         },
         //时间格式化函数，此处仅针对yyyy-MM-dd hh:mm:ss 的格式进行格式化

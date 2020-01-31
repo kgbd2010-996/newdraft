@@ -1,8 +1,11 @@
 var vue = new Vue({     //创建一个Vue的实例
     el:"#app",  //挂载点是id="app"的地方
     data:{
+        url:sessionStorage.getItem('url'),
         news:{},
-        author:''
+        author:'',
+        preNews:{},
+        nextNews:{}
     },
     methods:{
         search: function() {
@@ -23,15 +26,21 @@ var vue = new Vue({     //创建一个Vue的实例
             }
             var params = new URLSearchParams();
             params.append("newsId",newsId);
-            axios.post("http://localhost:8081/getNewsById",params).then((response) =>{
+            axios.post(this.url+"getNewsById",params).then((response) =>{
                 var map = JSON.parse(response.data.data)
                 this.news = map.news;
+                this.preNews = map.preNews;
+                this.nextNews = map.nextNews;
                 if (map.news.newsType == '2') {
-                    axios.post("http://localhost:8081/getAuthor",params).then((response)=>{
+                    axios.post(this.url+"getAuthor",params).then((response)=>{
                         this.author = response.data.data;
                     })
                 }
             });
+        },
+        getNews: function (newsId) {
+            localStorage.setItem("newsId",newsId);
+            window.location.href = "newsContent.html"
         },
         //时间格式化函数，此处仅针对yyyy-MM-dd hh:mm:ss 的格式进行格式化
         dateFormat:function(time) {

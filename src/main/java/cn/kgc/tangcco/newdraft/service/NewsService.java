@@ -1,9 +1,8 @@
 package cn.kgc.tangcco.newdraft.service;
 
 import cn.kgc.tangcco.newdraft.entity.News;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 王雨
@@ -22,5 +21,11 @@ public interface NewsService{
     List<News> getNewsByCreatedTime();
 
     String getAuthor(Integer newsId);
+
+    Map<String,Object> getPageNews(Integer currentPage, Integer pagesize);
+
+    News getPreNews(Integer newsId);
+
+    News getNextNews(Integer newsId);
 
 }

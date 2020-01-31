@@ -146,7 +146,7 @@ $(function(){
 			return false;
 		}
 
-		$.post(getRootPath() + "/isPhoneExists",{
+		$.post(getRootPath() + "isPhoneExists",{
 			phone:phone
 		},function(data){
 			if (data.code == 2001) {
@@ -191,7 +191,7 @@ $(function(){
 						ldata.code = code;
 					}*/
 
-					$.post(getRootPath() + "/doLogin",{
+					$.post(getRootPath() + "doLogin",{
 						'userPhone':inp,
 						'pwd':pass
 					},function(data){
@@ -227,7 +227,7 @@ $(function(){
 				if (checkPhone(phone) && checkCode(pcode)) {
 
 					//doPhoneLogin
-					$.post(getRootPath() + "/doPhoneLogin",{
+					$.post(getRootPath() + "doPhoneLogin",{
 						phone:phone,
 						code:pcode
 					},function(data){
@@ -254,15 +254,11 @@ $(function(){
 	}
 
 	function getRootPath() {
-	    /*//获取当前网址，如： http://localhost:8088/test/test.jsp
-	    var curPath = window.document.location.href;
-		//获取主机地址之后的目录，如： test/test.jsp
-		var pathName = window.document.location.pathname;
-		var pos = curPath.indexOf(pathName);
-	    //获取主机地址，如： http://localhost:8088
-	    var localhostPath = curPath.substring(0, pos);
-		return (localhostPath);*/
-	    return "http://localhost:8081";
+		var url = "";
+		$.get('../serverConfig.json',function (data) {
+			url = data.protocol + data.domain + data.port +data.context;
+		});
+	    return url;
 	}
 	
 	// 登录的回车事件
@@ -276,7 +272,7 @@ $(function(){
 	$(".form-data").delegate(".send","click",function () {
 		var phone = $.trim($('#num2').val());
 		if (checkPhone(phone)) {
-			$.post(getRootPath() + "/sendRandomNumber",{
+			$.post(getRootPath() + "sendRandomNumber",{
 				phone:phone
 			},function(data){
 				if (data.code == 2002) {

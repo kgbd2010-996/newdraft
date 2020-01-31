@@ -24,4 +24,13 @@ public interface NewsDao {
 
     String getAuthor(@Param("newsId") Integer newsId);
 
+    List<News> getPageNews(@Param("start")Integer start,@Param("end")Integer end);
+
+    Integer getTotal();
+
+    Integer getIndex(@Param("newsId") Integer newsId);
+
+    News getPreNextNews(@Param("index")Integer index);
+
+
 }

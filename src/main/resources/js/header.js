@@ -1,6 +1,7 @@
 var head = new Vue({     //创建一个Vue的实例
     el:"#head",  //挂载点是id="app"的地方
     data:{
+        url:sessionStorage.getItem('url'),
         keyword:'',
         logined:false, //判断是否登录
         programs:{
@@ -34,8 +35,12 @@ var head = new Vue({     //创建一个Vue的实例
         resetToken: function (token) {
             var params = new URLSearchParams();
             params.append('token', token);
-            axios.post("http://localhost:8081/resetToken",params).then((response)=> {
-                console.log(response.data.data)
+            axios.post(this.url+"resetToken",params,{
+                headers: {
+                    Authorization:token
+                }
+            }).then((response)=> {
+                console.log(response.data.message)
             })
         },
         refresh_user:function(){
@@ -50,7 +55,16 @@ var head = new Vue({     //创建一个Vue的实例
             //通过token获取缓存中的用户
             var params = new URLSearchParams();
             params.append('token', token);
-            axios.post("http://localhost:8081/isLogin",params).then((response)=>{
+            axios.post(this.url+"isLogin",params,{
+                headers: {
+                    Authorization:token,
+                }
+            }).then((response)=>{
+                console.log(response.data.code)
+                if (response.data.code == '3002' || response.data.code == '3003') {
+                    console.log("跳转登录")
+                    //window.location.href = "user_loginreg/login.html";
+                }
                 this.user = JSON.parse(response.data.data);
                 if(this.user.userId == activeUser.userId){
                     console.log("判断成功")
@@ -85,6 +99,5 @@ var head = new Vue({     //创建一个Vue的实例
     mounted(){
         //刷新当前用户
         this.refresh_user()
-
     }
 })
