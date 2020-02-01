@@ -83,6 +83,19 @@
             <artifactId>uasparser</artifactId>
             <version>0.6.2</version>
         </dependency>
+
+
+        <!--bootstrap上传插件所需依赖-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
     </dependencies>
 
     <build>

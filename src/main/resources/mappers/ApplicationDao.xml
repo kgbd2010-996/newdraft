@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kgc.tangcco.newdraft.dao.ApplicationDao">
+
+<!--    向数据库中添加文件相关信息-->
+    <insert id="addResource">
+        INSERT INTO nd_resources(res_id,res_name,res_link,res_owner)
+        VALUES (#{resId},#{resName},#{resLink},#{resOwner})
+    </insert>
+
+<!--    获取移民申请模板链接地址-->
+    <select id="gettemplateResource" resultMap="resources">
+        select res_link from nd_resources where res_id = "template"
+    </select>
+
+    <resultMap id="resources" type="cn.kgc.tangcco.newdraft.entity.Resources">
+        <id property="resId" column="res_id"/>
+        <result property="resLink" column="res_link"/>
+    </resultMap>
+</mapper>
