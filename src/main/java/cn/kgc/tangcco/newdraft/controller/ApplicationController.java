@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.newdraft.config;
+package cn.kgc.tangcco.newdraft.controller;
 
 import cn.kgc.tangcco.newdraft.entity.Resources;
 import cn.kgc.tangcco.newdraft.entity.Result;
