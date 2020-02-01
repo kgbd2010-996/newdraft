@@ -23,6 +23,11 @@ public class ProController {
     @Autowired
     private ProService proService;
 
+    /**
+     * 判断用户是否登录
+     * @param token 读取token
+     * @return
+     */
     @RequestMapping("/isLogin")
     public Result isLogin(String token) {
         Result result = new Result();
@@ -38,6 +43,11 @@ public class ProController {
         return result;
     }
 
+    /**
+     * 刷新token存在时间
+     * @param token token令牌
+     * @return
+     */
     @RequestMapping("/resetToken")
     public Result resetToken(String token) {
         Result result = new Result();
