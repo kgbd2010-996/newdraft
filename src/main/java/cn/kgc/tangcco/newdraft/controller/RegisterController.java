@@ -1,6 +1,8 @@
 package cn.kgc.tangcco.newdraft.controller;
 
+import cn.kgc.tangcco.newdraft.entity.Firms;
 import cn.kgc.tangcco.newdraft.entity.Result;
+import cn.kgc.tangcco.newdraft.entity.Userinfo;
 import cn.kgc.tangcco.newdraft.entity.Users;
 import cn.kgc.tangcco.newdraft.service.LoginRegisterService;
 import cn.kgc.tangcco.newdraft.utils.NoteUtil;
@@ -84,12 +86,12 @@ public class RegisterController {
 
     //注册
     @RequestMapping("register")
-    public Result register(Users newUser){
+    public Result register(Users newUser,Userinfo newUserInf,Firms newFirms){
 
         //密码MD5加密前的输出 md5加密在service里
         //System.out.println(newUser);
         Result result = new Result();
-        if(lrService.register(newUser)){ //说明注册成功
+        if(lrService.register(newUser,newUserInf,newFirms)){ //说明注册成功
             result.setMessage("注册成功");
             result.setCode(2001);
             result.setData("true");

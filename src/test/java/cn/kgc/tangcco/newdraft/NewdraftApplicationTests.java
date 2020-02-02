@@ -4,12 +4,15 @@ import cn.kgc.tangcco.newdraft.dao.ApplicationDao;
 import cn.kgc.tangcco.newdraft.entity.Resources;
 import cn.kgc.tangcco.newdraft.entity.Users;
 import cn.kgc.tangcco.newdraft.service.ApplicationService;
+import cn.kgc.tangcco.newdraft.service.LoginRegisterService;
+import org.apache.catalina.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,6 +21,8 @@ public class NewdraftApplicationTests {
     private ApplicationDao applicationDao;
     @Resource
     private ApplicationService applicationService;
+    @Resource
+    private LoginRegisterService loginRegisterService;
 
 
     @Test
@@ -61,5 +66,6 @@ public class NewdraftApplicationTests {
         int i = applicationService.addmidClientsFirms("xxxx","xxxx");
         System.out.println(i);
     }
+
 
 }
