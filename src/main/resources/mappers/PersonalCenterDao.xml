@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kgc.tangcco.newdraft.dao.PersonalCenterDao">
+
+    <select id="selectUserinfoByuserId" resultMap="userinfo">
+        select * from nd_userinfo where 1=1 and user_id = #{userId}
+    </select>
+
+    <select id="getResourceByUserId" resultMap="resources">
+
+    </select>
+
+    <update id="updateUserinfoByuserid">
+        update nd_userinfo set user_name=#{userinfo.userName},
+        user_email=#{userinfo.userEmail},
+        user_address=#{userinfo.userAddress},
+        user_tel=#{userinfo.userTel}
+        where 1=1 and user_id=#{userId}
+    </update>
+
+    <select id="selectuserPasswordByuserId" parameterType="java.lang.String" resultType="String">
+        select user_password from nd_users where 1=1 and user_id=#{userId}
+    </select>
+
+    <update id="updateUserpassword">
+        update nd_users set user_password = #{userPassword} where user_id = #{userId};
+    </update>
+
+    <insert id="userAddNews">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="newsId">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into nd_news (news_type,news_title,news_content,news_owner,news_createdTime,news_verifiedTime,news_updatedTime,news_index)
+        values (1,#{newsTitle},#{newsContent},#{newsOwner},SYSDATE(),SYSDATE(),SYSDATE(),1);
+    </insert>
+
+    <insert id="addMidNewsFirms">
+        insert into mid_news_firms(news_id,firm_id) values (#{newsId},#{newsOwner})
+    </insert>
+
+    <select id="selectFirmsByid" resultMap="Firms">
+        select firms_id,firms_name,firms_introduction,firms_tel,firms_email,firms_address,firms_url
+        from nd_firms where 1=1 and firms_id = #{firmsId}
+    </select>
+
+    <update id="updateFirmsByid">
+        update nd_firms set firms_name=#{firmsName},firms_introduction=#{firmsIntroduction},firms_tel=#{firmsTel},
+        firms_email=#{firmsEmail},firms_address=#{firmsAddress},firms_url=#{firmsUrl}
+        where firms_id=#{firmsId}
+    </update>
+
+    <select id="userSelectNewsBynewsOwner" resultMap="news">
+        select news_id,news_title,news_content,news_owner,news_createdTime,news_verifiedTime,news_updatedTime
+        from nd_news where 1=1 and news_owner = #{newsOwner}
+    </select>
+
+    <select id="selectByNewsId" resultMap="news">
+        select news_id,news_title,news_content from nd_news where 1=1 and news_id=#{newsId};
+    </select>
+
+    <update id="userUpdateNewsByNewsid">
+        update nd_news set news_title=#{news.newsTitle},news_content=#{news.newsContent},news_updatedTime=SYSDATE() where news_id=#{newsId};
+    </update>
+
+
+
+
+
+
+    <resultMap id="userinfo" type="cn.kgc.tangcco.newdraft.entity.Userinfo">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="userTel" column="user_tel"/>
+    </resultMap>
+
+    <resultMap id="resources" type="Resources">
+        <id property="resId" column="res_id"/>
+        <result property="resName" column="res_name"/>
+        <result property="resLink" column="res_link"/>
+        <result property="resOwner" column="res_owner"/>
+    </resultMap>
+
+    <resultMap id="Firms" type="cn.kgc.tangcco.newdraft.entity.Firms">
+        <id property="firmsId" column="firms_id"/>
+        <result property="firmsName" column="firms_name"/>
+        <result property="firmsIntroduction" column="firms_introduction"/>
+        <result property="firmsTel" column="firms_tel"/>
+        <result property="firmsEmail" column="firms_email"/>
+        <result property="firmsAddress" column="firms_address"/>
+        <result property="firmsImageId" column="firms_imageId"/>
+        <result property="firmsUrl" column="firms_url"/>
+        <result property="frimsStatus" column="frims_status"/>
+    </resultMap>
+
+    <resultMap id="news" type="cn.kgc.tangcco.newdraft.entity.News">
+        <id property="newsId" column="news_id"/>
+        <result property="newsType" column="news_type"/>
+        <result property="newsTitle" column="news_title"/>
+        <result property="newsContent" column="news_content"/>
+        <result property="newsOwner" column="news_owner"/>
+        <result property="newsCreatedTime" column="news_createdTime"/>
+        <result property="newsVerifiedTime" column="news_verifiedTime"/>
+        <result property="newsUpdatedTime" column="news_updatedTime"/>
+        <result property="newsLevel" column="news_level"/>
+        <result property="newsIndex" column="news_index"/>
+        <result property="newsStatus" column="news_status"/>
+    </resultMap>
+
+</mapper>
