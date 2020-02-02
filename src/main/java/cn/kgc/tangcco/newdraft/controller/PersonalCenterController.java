@@ -2,11 +2,15 @@ package cn.kgc.tangcco.newdraft.controller;
 
 import cn.kgc.tangcco.newdraft.entity.*;
 import cn.kgc.tangcco.newdraft.service.PersonalCenterService;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.qiniu.util.Json;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -25,10 +29,10 @@ public class PersonalCenterController {
         if (userinfo != null && userres != null) {
             result.setMessage("success");
             result.setCode(2001);
-            JSONObject jo = new JSONObject();
-            jo.put("userinfo", userinfo);
-            jo.put("userres", userres);
-            result.setData(jo.toJSONString());
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("userinfo", userinfo);
+            map.put("userres", userres);
+            result.setData(JSON.toJSONString(map));
         } else {
             result.setMessage("failure");
             result.setCode(2002);
@@ -87,11 +91,11 @@ public class PersonalCenterController {
         if (firms != null && allNews != null && newsByid != null) {
             result.setMessage("success");
             result.setCode(2001);
-            JSONObject jo = new JSONObject();
-            jo.put("firms", firms);
-            jo.put("allNews", allNews);
-            jo.put("newsByid", newsByid);
-            result.setData(jo.toJSONString());
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("firms", firms);
+            map.put("allNews", allNews);
+            map.put("newsByid", newsByid);
+            result.setData(JSON.toJSONString(map));
         } else {
             result.setMessage("failure");
             result.setCode(2002);
