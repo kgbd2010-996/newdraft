@@ -7,7 +7,7 @@
     </select>
 
     <select id="getResourceByUserId" resultMap="resources">
-
+        select * from nd_resources where res_owner = #{userId}
     </select>
 
     <update id="updateUserinfoByuserid">

@@ -22,11 +22,10 @@ public class PersonalCenterController {
     @PostMapping("/selectUserinfo")
     //根据用户id查到当前用户的详细信息 2001将会返回一个json字符串
     public Result selectUserinfoByUserid(@RequestParam("userId") String userId) {
-
         Userinfo userinfo = ps.selectUserinfoByuserId(userId);
         Resources userres = ps.getResourceByUserId(userId);
         Result result = new Result();
-        if (userinfo != null && userres != null) {
+        if (userinfo != null) {
             result.setMessage("success");
             result.setCode(2001);
             Map<String,Object> map = new HashMap<String,Object>();
@@ -42,7 +41,7 @@ public class PersonalCenterController {
 
     @PostMapping("/updateUserinfo")
     //根据用户id修改用户信息 2001代表修改成功 2002代表修改失败
-    public Result updateUserinfoByuserid(Userinfo userinfo) {
+    public Result updateUserinfoByuserid(@RequestBody Userinfo userinfo) {
         int count = ps.updateUserinfoByuserid(userinfo.getUserId(), userinfo);
         Result result = new Result();
         if (count > 0) {
