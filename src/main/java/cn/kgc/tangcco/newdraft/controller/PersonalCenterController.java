@@ -42,10 +42,7 @@ public class PersonalCenterController {
 
     @PostMapping("/updateUserinfo")
     //根据用户id修改用户信息 2001代表修改成功 2002代表修改失败
-    public Result updateUserinfoByuserid(Userinfo userinfo,
-                                         @RequestParam("userId") String userId,
-                                         @RequestParam("userPassword") String userPassword,
-                                         @RequestParam("newUserPassword") String newUserPassword) {
+    public Result updateUserinfoByuserid(Userinfo userinfo) {
         int count = ps.updateUserinfoByuserid(userinfo.getUserId(), userinfo);
         Result result = new Result();
         if (count > 0) {

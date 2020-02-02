@@ -4,8 +4,8 @@
 
     <select id="getFirmsByProgramId" resultMap="firms">
         select nf.firms_id,firms_name,firms_introduction,firms_tel,firms_email,firms_address,firms_url from nd_firms nf
-        RIGHT JOIN mid_programs_firms mpf ON mpf.firm_id=nf.firms_id
-        RIGHT JOIN nd_programs np ON np.program_id=mpf.program_id AND np.program_id = #{programId}
+         JOIN mid_programs_firms mpf ON mpf.firm_id=nf.firms_id
+         JOIN nd_programs np ON np.program_id=mpf.program_id AND np.program_id = #{programId}
         AND nf.frims_status = 1
     </select>
 
