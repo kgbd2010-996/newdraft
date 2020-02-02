@@ -1,6 +1,8 @@
 package cn.kgc.tangcco.newdraft.service.impl;
 
 import cn.kgc.tangcco.newdraft.dao.LoginRegisterDao;
+import cn.kgc.tangcco.newdraft.entity.Firms;
+import cn.kgc.tangcco.newdraft.entity.Userinfo;
 import cn.kgc.tangcco.newdraft.entity.Users;
 import cn.kgc.tangcco.newdraft.service.LoginRegisterService;
 import cn.kgc.tangcco.newdraft.utils.IDGenerator;
@@ -56,14 +58,32 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
      * @return
      */
     @Override
-    public boolean register(Users newUser) {
+    public boolean register(Users newUser, Userinfo newUserInf, Firms newFirms) {
         //获得唯一id标识
         newUser.setUserId(IDGenerator.getID());
         //将密码进行md5加密
         newUser.setUserPassword(MD5.getMD5_SsaltStrPwd(newUser.getUserPassword(),newUser.getUserId()));
         int count = lrDao.addUsers(newUser);
         if(count > 0){
-            return true; //说明添加成功
+            /*客户信息*/
+            if (newUser.getUserRole()==1){
+                int i = lrDao.addUserInfo(newUserInf);
+                if (i>0){
+                    return true; //说明添加成功
+                }
+                /*商户信息*/
+            }else if (newUser.getUserRole()==2){
+                int i = lrDao.addFirms(newFirms);
+                if (i>0){
+                    return true; //说明添加成功
+                }
+                /*游客信息*/
+            }else if (newUser.getUserRole()==0){
+                int i = lrDao.addTouristsInfo(newUserInf);
+                if (i>0){
+                    return true; //说明添加成功
+                }
+            }
         }
         return false;
     }

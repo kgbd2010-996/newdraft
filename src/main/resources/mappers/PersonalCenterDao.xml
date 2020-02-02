@@ -7,7 +7,7 @@
     </select>
 
     <select id="getResourceByUserId" resultMap="resources">
-
+        select * from nd_resources where user_id = #{userId}
     </select>
 
     <update id="updateUserinfoByuserid">
@@ -61,9 +61,6 @@
     <update id="userUpdateNewsByNewsid">
         update nd_news set news_title=#{news.newsTitle},news_content=#{news.newsContent},news_updatedTime=SYSDATE() where news_id=#{newsId};
     </update>
-
-
-
 
 
 

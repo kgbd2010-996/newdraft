@@ -66,4 +66,20 @@
     <insert id="addUsers">
         insert into nd_users values(#{users.userId},#{users.userWebName},#{users.userPhone},#{users.userPassword},null,#{users.userRole},1);
     </insert>
+
+
+    <insert id="addUserInfo">
+        insert into nd_userinfo (user_id,user_name,user_email,user_address,user_tel)
+        values (#{userInfo.userId},#{userInfo.userName},#{userInfo.userEmail},#{userInfo.userAddress},#{userInfo.userTel})
+    </insert>
+
+    <insert id="addTouristsInfo">
+        insert into nd_userinfo (user_id) values (#{userInfo.userId})
+    </insert>
+
+    <delete id="addFirms">
+        insert into nd_firms (firms_id, firms_name, firms_introduction, firms_tel, firms_email, firms_address, firms_imageId, firms_url)
+        values (#{firms.firmsId},#{firms.firmsName},#{firms.firmsIntroduction},#{firms.firmsTel},
+        #{firms.firmsEmail},#{firms.firmsAddress},#{firms.firmsImageId},#{firms.firmsUrl},)
+    </delete>
 </mapper>

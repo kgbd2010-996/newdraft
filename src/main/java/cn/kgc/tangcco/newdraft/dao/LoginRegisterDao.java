@@ -2,6 +2,8 @@ package cn.kgc.tangcco.newdraft.dao;
 
 
 import cn.kgc.tangcco.newdraft.entity.Users;
+import cn.kgc.tangcco.newdraft.entity.Userinfo;
+import cn.kgc.tangcco.newdraft.entity.Firms;
 import cn.kgc.tangcco.newdraft.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -25,4 +27,25 @@ public interface LoginRegisterDao {
 
     //添加一个Users对象
     int addUsers(@Param("users") Users newUser);
+
+    /**
+     * 添加客户信息
+     * @param userInfo
+     * @return
+     */
+    int addUserInfo(@Param("userInfo") Userinfo userInfo);
+
+    /**
+     * 添加游客信息
+     * @param userInfo
+     * @return
+     */
+    int addTouristsInfo(@Param("userInfo") Userinfo userInfo);
+
+    /**
+     * 添加商户信息
+     * @param userInfo
+     * @return
+     */
+    int addFirms(@Param("firms") Firms firms);
 }
