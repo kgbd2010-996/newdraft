@@ -2,19 +2,49 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.kgc.tangcco.newdraft.dao.ApplicationDao">
 
-<!--    向数据库中添加文件相关信息-->
+    <!--判断登录用户是否为客户-->
+    <select id="getUserRoleByUserId"  resultMap="users">
+        select user_role from nd_users where user_id=#{userId}
+    </select>
+
+    <!--获取移民申请模板地址-->
+    <select id="gettemplateResource" resultMap="resources">
+        select res_link from nd_resources where res_id = 1
+    </select>
+
+    <!--根据项目id获取合作商户id与名称-->
+    <select id="getFrimsByProgramsId" resultMap="firms">
+        select nf.firms_id,nf.firms_name   from nd_firms nf
+        join mid_programs_firms mpf on nf.firms_id = mpf.firm_id and mpf.program_id= #{programsId}
+    </select>
+
+    <!--向数据库添加申请文件相关信息-->
     <insert id="addResource">
-        INSERT INTO nd_resources(res_id,res_name,res_link,res_owner)
-        VALUES (#{resId},#{resName},#{resLink},#{resOwner})
+        INSERT INTO nd_resources(res_name,res_link,res_owner)
+        VALUES (#{resName},#{resLink},#{resOwner})
     </insert>
 
-<!--    获取移民申请模板链接地址-->
-    <select id="gettemplateResource" resultMap="resources">
-        select res_link from nd_resources where res_id = "template"
-    </select>
+    <!--向数据库添加客户与商户的中间表-->
+    <insert id="addmidClientsFirms">
+        INSERT INTO mid_clients_firms(client_id, firms_id)
+        VALUES (#{clientId},#{firmsId})
+    </insert>
+
+
+
+
+    <resultMap id="users" type="cn.kgc.tangcco.newdraft.entity.Users">
+        <id property="userId" column="user_Id"/>
+        <result property="userRole" column="user_role"/>
+    </resultMap>
 
     <resultMap id="resources" type="cn.kgc.tangcco.newdraft.entity.Resources">
         <id property="resId" column="res_id"/>
         <result property="resLink" column="res_link"/>
+    </resultMap>
+
+    <resultMap id="firms" type="cn.kgc.tangcco.newdraft.entity.Firms">
+        <id property="firmsId" column="firms_id"/>
+        <result property="firmsName" column="firms_name"/>
     </resultMap>
 </mapper>

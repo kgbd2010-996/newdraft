@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @program: newdraft
@@ -34,30 +36,42 @@ public class MyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //System.out.println("经过了拦截器");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        //自定义header头部是否允许
-        response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, X-Requested-With, token");
-        response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST, PUT, DELETE");
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        Result result = new Result();
-        String token = request.getHeader("Authorization");
-        //System.out.println(token);
-        if (null == token || token.equals("null") || token.equals("")) {
-            result.setCode(3002);
-            result.setMessage("未登录");
-            returnJson(response, JSON.toJSONString(result));
-            return false;
+        String method = request.getMethod();
+        if ("OPTIONS".equalsIgnoreCase(method)) {
+            // ajax跨域
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            //自定义header头部是否允许
+            response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, X-Requested-With, token");
+            response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST, PUT, DELETE");
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Max-Age", "3600");
+            return true;
+        } else {
+            // ajax跨域
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            //自定义header头部是否允许
+            response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, X-Requested-With, token");
+            response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST, PUT, DELETE");
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Max-Age", "3600");
+            Result result = new Result();
+            String token = request.getHeader("Authorization");
+            System.out.println(token);
+            if (null == token || token.equals("null") || token.equals("")) {
+                result.setCode(3002);
+                result.setMessage("未登录");
+                returnJson(response, JSON.toJSONString(result));
+                return false;
+            }
+            boolean exsist = myInterceptor.redisUtils.exsist(token);
+            if (!exsist) {
+                result.setCode(3003);
+                result.setMessage("token过期或者失效");
+                returnJson(response, JSON.toJSONString(result));
+                return false;
+            }
+            return true;
         }
-        boolean exsist = myInterceptor.redisUtils.exsist(token);
-        if (!exsist) {
-            result.setCode(3003);
-            result.setMessage("token过期或者失效");
-            returnJson(response, JSON.toJSONString(result));
-            return false;
-        }
-        return true;
     }
 
 
