@@ -20,7 +20,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(new MyInterceptor())
                 //要拦截的地址  如果全部拦截就用 "/**"
                 .addPathPatterns("/isLogin")
-                .addPathPatterns("/appInit")
+//                .addPathPatterns("/appInit")
                 //不需要拦截的地址
                 .excludePathPatterns("/index.html")
                 .excludePathPatterns("/user_loginreg/login.html")
