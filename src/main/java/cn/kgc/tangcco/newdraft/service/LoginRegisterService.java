@@ -1,6 +1,8 @@
 package cn.kgc.tangcco.newdraft.service;
 
 
+import cn.kgc.tangcco.newdraft.entity.Firms;
+import cn.kgc.tangcco.newdraft.entity.Userinfo;
 import cn.kgc.tangcco.newdraft.entity.Users;
 import cn.kgc.tangcco.newdraft.vo.UserVO;
 
@@ -32,7 +34,7 @@ public interface LoginRegisterService {
      * @param newUser
      * @return
      */
-    public boolean register(Users newUser);
+    public boolean register(Users newUser, Userinfo newUserInf, Firms newFirms);
 
     /**
      * 根据web用户名获取对象
