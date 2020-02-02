@@ -75,25 +75,53 @@ public class PersonalCenterController {
 
     @PostMapping("/selectFirmsByid")
     //根据商家id查找商家信息
-    public Result selectFirmsByid(@RequestParam("firmsId") String firmsId,
-                                  @RequestParam("newsOwner") String newsOwner,
-                                  @RequestParam("newsId") int newsId) {
+    public Result selectFirmsByid(@RequestParam("firmsId")String firmsId){
         Firms firms = ps.selectFirmsByid(firmsId);
-
-        List<News> allNews = ps.userSelectNewsBynewsOwner(newsOwner);
-
-        News newsByid = ps.selectByNewsId(newsId);
-
         Result result = new Result();
-        if (firms != null && allNews != null && newsByid != null) {
+        Map<String,Object> map = new HashMap<String,Object>();
+        if (firms != null){
             result.setMessage("success");
             result.setCode(2001);
-            Map<String,Object> map = new HashMap<String,Object>();
-            map.put("firms", firms);
-            map.put("allNews", allNews);
-            map.put("newsByid", newsByid);
+            map.put("firms",firms);
             result.setData(JSON.toJSONString(map));
-        } else {
+        }else {
+            result.setMessage("failure");
+            result.setCode(2002);
+        }
+        return result;
+    }
+
+
+    @PostMapping("/selectNews")
+    //根据商家姓名查找新闻 2001将会返回一个json字符串
+    public Result userSelectNewsBynewsOwner(@RequestParam("newsOwner")String newsOwner){
+        List<News> news = ps.userSelectNewsBynewsOwner(newsOwner);
+        Result result = new Result();
+        Map<String,Object> map = new HashMap<String,Object>();
+        if (news != null){
+            result.setMessage("success");
+            result.setCode(2001);
+            map.put("news",news);
+            result.setData(JSON.toJSONString(map));
+        }else{
+            result.setMessage("failure");
+            result.setCode(2002);
+        }
+        return result;
+    }
+
+    @PostMapping("/selectByNewsId")
+    //根据新闻id查找新闻信息 2001将会返回一个json字符串
+    public Result selectByNewsId(@RequestParam("newsId")int newsId){
+        News news = ps.selectByNewsId(newsId);
+        Result result = new Result();
+        Map<String,Object> map = new HashMap<String,Object>();
+        if (news != null){
+            result.setMessage("success");
+            result.setCode(2001);
+            map.put("news",news);
+            result.setData(JSON.toJSONString(map));
+        }else {
             result.setMessage("failure");
             result.setCode(2002);
         }
