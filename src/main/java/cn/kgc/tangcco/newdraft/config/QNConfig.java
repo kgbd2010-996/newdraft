@@ -22,6 +22,7 @@ public class QNConfig {
     @Bean
     public com.qiniu.storage.Configuration qiniuConfig() {
         return new com.qiniu.storage.Configuration(Region.region2());
+//        return new com.qiniu.storage.Configuration(Region.region1());
     }
 
     @Bean

@@ -51,14 +51,14 @@ public interface ApplicationService {
      * @param resOwner  文件所有人id
      * @return  数据添加状态
      */
-    int addResource(String resName, String resLink, String resOwner);
+    int addResource(String resName,String resLink,String resOwner);
 
     /**
      * 向数据库添加客户与商户的中间表
      * @param clientId  客户id
-     * @param firmsId    商户id
+     * @param firmsd    商户id
      * @return
      */
-    int addmidClientsFirms(String clientId, String firmsId);
+    int addmidClientsFirms(String clientId,String firmsId);
 
 }
