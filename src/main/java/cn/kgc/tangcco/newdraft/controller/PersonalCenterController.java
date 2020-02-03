@@ -181,6 +181,7 @@ public class PersonalCenterController {
     @PostMapping("/delNews")
     //商家修改新闻 2001修改成功 2002修改失败
     public Result delNews(@RequestParam("newsId")Integer newsId) {
+        System.out.println(newsId);
         Integer delStatus = newsService.delNewsByNewsId(newsId);
         Result result = new Result();
         if (delStatus > 0) {

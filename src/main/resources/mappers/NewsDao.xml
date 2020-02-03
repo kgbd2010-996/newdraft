@@ -3,28 +3,28 @@
 <mapper namespace="cn.kgc.tangcco.newdraft.dao.NewsDao">
 
     <select id="getAllNews" resultMap="news">
-        select * from nd_news
+        select * from nd_news where news_status=1
     </select>
 
     <select id="getTotal" resultType="integer">
-        select count(1) from nd_news
+        select count(1) from nd_news where news_status=1
     </select>
 
     <select id="getPageNews" resultMap="news">
-        select * from nd_news order by news_level desc,news_index desc,news_createdTime desc limit #{start},#{end}
+        select * from nd_news where news_status=1 order by news_level desc,news_index desc,news_createdTime desc limit #{start},#{end}
     </select>
 
     <select id="getNewsById" resultMap="news">
-        select * from nd_news where news_id = #{newsId}
+        select * from nd_news where news_id = #{newsId} and news_status=1
     </select>
 
     <select id="getNewestNews" resultMap="news">
-        select news_id,news_title,news_content,news_createdTime from nd_news
+        select news_id,news_title,news_content,news_createdTime from nd_news where news_status=1
         order by news_level desc,news_index desc,news_createdTime desc limit 0,1
     </select>
 
     <select id="getNewsByCreatedTime" resultMap="news">
-        select news_id,news_title,news_content,news_createdTime from nd_news
+        select news_id,news_title,news_content,news_createdTime from nd_news where news_status=1
         order by news_level desc,news_index desc,news_createdTime desc limit 1,3
     </select>
 
@@ -34,13 +34,13 @@
     </select>
 
     <select id="getIndex" resultType="integer">
-        select (num1+num2+num3) from (select count(*)as num1 from nd_news where news_level &gt;(select news_level from nd_news where news_id=#{newsId})) as a,
-        (select count(*)as num2 from nd_news where news_level=(select news_level from nd_news where news_id=#{newsId}) and news_index &gt;(select news_index from nd_news where news_id=#{newsId}))as b,
-        (select count(*)as num3 from nd_news where news_level=(select news_level from nd_news where news_id=#{newsId}) and news_index = (select news_index from nd_news where news_id=#{newsId}) and news_createdTime &gt;(select news_createdTime from nd_news where news_id=#{newsId}))as c
+        select (num1+num2+num3) from (select count(*)as num1 from nd_news where news_status=1 and news_level &gt;(select news_level from nd_news where news_id=#{newsId} and news_status=1)) as a,
+        (select count(*)as num2 from nd_news where news_status=1 and news_level=(select news_level from nd_news where news_id=#{newsId} and news_status=1) and news_index &gt;(select news_index from nd_news where news_status=1 and news_id=#{newsId}))as b,
+        (select count(*)as num3 from nd_news where news_status=1 and news_level=(select news_level from nd_news where news_id=#{newsId} and news_status=1) and news_index = (select news_index from nd_news where news_status=1 and news_id=#{newsId}) and news_createdTime &gt;(select news_createdTime from nd_news where news_status=1 and news_id=#{newsId}))as c
     </select>
 
     <select id="getPreNextNews" resultMap="news">
-        select * from nd_news order by news_level desc,news_index desc,news_createdTime desc limit #{index},1
+        select * from nd_news where news_status=1 order by news_level desc,news_index desc,news_createdTime desc limit #{index},1
     </select>
 
 

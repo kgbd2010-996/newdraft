@@ -63,4 +63,13 @@ public class ProController {
         result.setData("success");
         return result;
     }
+
+    @RequestMapping("/goToCenter")
+    public Result goToCenter() {
+        Result result = new Result();
+        result.setCode(2001);
+        result.setMessage("请求成功！");
+        result.setData("success");
+        return result;
+    }
 }

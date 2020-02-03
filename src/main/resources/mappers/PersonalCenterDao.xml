@@ -40,7 +40,7 @@
 
     <select id="selectFirmsByid" resultMap="Firms">
         select firms_id,firms_name,firms_introduction,firms_tel,firms_email,firms_address,firms_url
-        from nd_firms where 1=1 and firms_id = #{firmsId}
+        from nd_firms where 1=1 and firms_id = #{firmsId} and frims_status=1
     </select>
 
     <update id="updateFirmsByid">
@@ -51,11 +51,11 @@
 
     <select id="userSelectNewsBynewsOwner" resultMap="news">
         select news_id,news_title,news_content,news_owner,news_createdTime,news_verifiedTime,news_updatedTime
-        from nd_news where 1=1 and news_owner = #{newsOwner}
+        from nd_news where 1=1 and news_owner = #{newsOwner} and news_status=1
     </select>
 
     <select id="selectByNewsId" resultMap="news">
-        select news_id,news_title,news_content from nd_news where 1=1 and news_id=#{newsId};
+        select news_id,news_title,news_content from nd_news where 1=1 and news_id=#{newsId} and news_status=1;
     </select>
 
     <update id="userUpdateNewsByNewsid">
