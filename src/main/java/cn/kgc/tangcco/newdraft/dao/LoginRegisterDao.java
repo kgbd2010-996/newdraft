@@ -28,24 +28,11 @@ public interface LoginRegisterDao {
     //添加一个Users对象
     int addUsers(@Param("users") Users newUser);
 
-    /**
-     * 添加客户信息
-     * @param userInfo
-     * @return
-     */
-    int addUserInfo(@Param("userInfo") Userinfo userInfo);
 
-    /**
-     * 添加游客信息
-     * @param userInfo
-     * @return
-     */
-    int addTouristsInfo(@Param("userInfo") Userinfo userInfo);
+    int addUserIdToInfo(@Param("userId") String userId);
 
-    /**
-     * 添加商户信息
-     * @param userInfo
-     * @return
-     */
-    int addFirms(@Param("firms") Firms firms);
+
+    int addUserIdToFirms(@Param("firmsId") String firmsId);
+
+
 }

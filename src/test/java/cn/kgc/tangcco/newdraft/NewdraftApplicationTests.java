@@ -72,8 +72,10 @@ public class NewdraftApplicationTests {
         System.out.println(i);
     }
 
+    @Test
+    public void test10() {
 
-
+    }
 
 
 
