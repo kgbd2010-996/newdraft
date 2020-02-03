@@ -56,7 +56,7 @@ public class MyInterceptor implements HandlerInterceptor {
             response.setHeader("Access-Control-Max-Age", "3600");
             Result result = new Result();
             String token = request.getHeader("Authorization");
-            System.out.println(token);
+            //System.out.println(token);
             if (null == token || token.equals("null") || token.equals("")) {
                 result.setCode(3002);
                 result.setMessage("未登录");

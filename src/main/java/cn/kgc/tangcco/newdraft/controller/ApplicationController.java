@@ -38,9 +38,9 @@ public class ApplicationController {
 
     @RequestMapping("/before")
     public String before(@RequestParam("uid") String userId,Model model) {
-        System.out.println(userId);
+        //System.out.println(userId);
         boolean userRoleByUserId = applicationService.getUserRoleByUserId(userId);
-        System.out.println(userRoleByUserId);
+        //System.out.println(userRoleByUserId);
         Map<String, Object> bmap = new HashMap<String, Object>();
         if (userRoleByUserId){
             bmap.put("status",2001);
@@ -66,7 +66,7 @@ public class ApplicationController {
     public Result upload(@RequestParam("ruid") String applicantId,
                          @RequestParam("phone") String applicantPhone,
                          @RequestParam("excel") MultipartFile file) throws Exception {
-        System.out.println(applicantId);
+        //System.out.println(applicantId);
         Response response = applicationService.uploadFile(applicantId, applicantPhone, file.getInputStream());
         DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
         //文件链接
@@ -90,8 +90,8 @@ public class ApplicationController {
                          @RequestParam("fid") String fid,
                          Model model) {
         Result subResult = new Result();
-        System.out.println("这是cid"+"=========="+cid);
-        System.out.println("这是fid"+"=========="+fid);
+        //System.out.println("这是cid"+"=========="+cid);
+        //System.out.println("这是fid"+"=========="+fid);
         int status = applicationService.addmidClientsFirms(cid, fid);
         if (status==1){
             subResult.setCode(2001);
