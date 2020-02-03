@@ -1,6 +1,8 @@
 package cn.kgc.tangcco.newdraft.service;
 
 import cn.kgc.tangcco.newdraft.entity.News;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +29,7 @@ public interface NewsService{
     News getPreNews(Integer newsId);
 
     News getNextNews(Integer newsId);
+
+    Integer delNewsByNewsId(Integer newsId);
 
 }

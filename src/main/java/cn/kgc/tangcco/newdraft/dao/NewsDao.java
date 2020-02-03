@@ -32,5 +32,6 @@ public interface NewsDao {
 
     News getPreNextNews(@Param("index")Integer index);
 
+    Integer delNewsByNewsId(@Param("newsId") Integer newsId);
 
 }

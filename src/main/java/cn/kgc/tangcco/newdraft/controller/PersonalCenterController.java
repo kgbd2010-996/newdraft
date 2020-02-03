@@ -1,6 +1,7 @@
 package cn.kgc.tangcco.newdraft.controller;
 
 import cn.kgc.tangcco.newdraft.entity.*;
+import cn.kgc.tangcco.newdraft.service.NewsService;
 import cn.kgc.tangcco.newdraft.service.PersonalCenterService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -18,6 +19,9 @@ public class PersonalCenterController {
 
     @Resource
     private PersonalCenterService ps;
+
+    @Resource
+    private NewsService newsService;
 
     @PostMapping("/selectUserinfo")
     //根据用户id查到当前用户的详细信息 2001将会返回一个json字符串
@@ -165,6 +169,21 @@ public class PersonalCenterController {
         int i = ps.userUpdateNewsByNewsid(news, news.getNewsId());
         Result result = new Result();
         if (i > 0) {
+            result.setMessage("success");
+            result.setCode(2001);
+        } else {
+            result.setMessage("failure");
+            result.setCode(2002);
+        }
+        return result;
+    }
+
+    @PostMapping("/delNews")
+    //商家修改新闻 2001修改成功 2002修改失败
+    public Result delNews(@RequestParam("newsId")Integer newsId) {
+        Integer delStatus = newsService.delNewsByNewsId(newsId);
+        Result result = new Result();
+        if (delStatus > 0) {
             result.setMessage("success");
             result.setCode(2001);
         } else {

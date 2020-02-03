@@ -43,6 +43,7 @@
         select * from nd_news order by news_level desc,news_index desc,news_createdTime desc limit #{index},1
     </select>
 
+
     <resultMap id="news" type="News">
         <id property="newsId" column="news_id"/>
         <result property="newsType" column="news_type"/>
@@ -67,4 +68,7 @@
             <result property="frimsStatus" column="firms_status"/>
         </association>-->
     </resultMap>
+    <update id="delNewsByNewsId">
+        update nd_news set news_status=2 where news_id=#{newsId}
+    </update>
 </mapper>

@@ -1,6 +1,8 @@
 package cn.kgc.tangcco.newdraft;
 
 import cn.kgc.tangcco.newdraft.dao.ApplicationDao;
+import cn.kgc.tangcco.newdraft.dao.PersonalCenterDao;
+import cn.kgc.tangcco.newdraft.entity.News;
 import cn.kgc.tangcco.newdraft.entity.Resources;
 import cn.kgc.tangcco.newdraft.entity.Users;
 import cn.kgc.tangcco.newdraft.service.ApplicationService;
@@ -23,6 +25,9 @@ public class NewdraftApplicationTests {
     private ApplicationService applicationService;
     @Resource
     private LoginRegisterService loginRegisterService;
+    @Resource
+    private PersonalCenterDao personalCenterDao;
+
 
 
     @Test
@@ -66,6 +71,10 @@ public class NewdraftApplicationTests {
         int i = applicationService.addmidClientsFirms("xxxx","xxxx");
         System.out.println(i);
     }
+
+
+
+
 
 
 }
