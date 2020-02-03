@@ -34,7 +34,7 @@ public interface LoginRegisterService {
      * @param newUser
      * @return
      */
-    public boolean register(Users newUser, Userinfo newUserInf, Firms newFirms);
+    public boolean register(Users newUser);
 
     /**
      * 根据web用户名获取对象

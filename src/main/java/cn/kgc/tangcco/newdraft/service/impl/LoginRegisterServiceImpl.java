@@ -58,7 +58,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
      * @return
      */
     @Override
-    public boolean register(Users newUser, Userinfo newUserInf, Firms newFirms) {
+    public boolean register(Users newUser) {
         //获得唯一id标识
         newUser.setUserId(IDGenerator.getID());
         //将密码进行md5加密
@@ -67,22 +67,17 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
         if(count > 0){
             /*客户信息*/
             if (newUser.getUserRole()==1){
-                int i = lrDao.addUserInfo(newUserInf);
+                int i = lrDao.addUserIdToInfo(newUser.getUserId());
                 if (i>0){
                     return true; //说明添加成功
                 }
                 /*商户信息*/
             }else if (newUser.getUserRole()==2){
-                int i = lrDao.addFirms(newFirms);
+                int i = lrDao.addUserIdToFirms(newUser.getUserId());
                 if (i>0){
                     return true; //说明添加成功
                 }
                 /*游客信息*/
-            }else if (newUser.getUserRole()==0){
-                int i = lrDao.addTouristsInfo(newUserInf);
-                if (i>0){
-                    return true; //说明添加成功
-                }
             }
         }
         return false;
