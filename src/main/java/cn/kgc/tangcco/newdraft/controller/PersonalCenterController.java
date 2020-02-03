@@ -129,7 +129,8 @@ public class PersonalCenterController {
 
     @PostMapping("/addNews")
     //商家添加新闻 2001添加成功 2002添加失败
-    public Result userAddNews(News news) {
+    public Result userAddNews(@RequestBody News news) {
+        System.out.println(news.toString());
         int i = ps.userAddNews(news);
         Result result = new Result();
         if (i > 0) {
@@ -143,7 +144,8 @@ public class PersonalCenterController {
     }
 
     @PostMapping("/updateFirmsByid")
-    public Result updateFirmsByid(Firms firms) {
+    public Result updateFirmsByid(@RequestBody Firms firms) {
+        System.out.println(firms.toString());
         int i = ps.updateFirmsByid(firms);
         Result result = new Result();
         if (i > 0) {
@@ -159,7 +161,7 @@ public class PersonalCenterController {
 
     @PostMapping("/updateNews")
     //商家修改新闻 2001修改成功 2002修改失败
-    public Result userUpdateNewsByNewsid(News news) {
+    public Result userUpdateNewsByNewsid(@RequestBody News news) {
         int i = ps.userUpdateNewsByNewsid(news, news.getNewsId());
         Result result = new Result();
         if (i > 0) {
