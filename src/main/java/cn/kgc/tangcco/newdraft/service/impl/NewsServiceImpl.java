@@ -75,4 +75,9 @@ public class NewsServiceImpl implements NewsService {
         News nextNews = newsDao.getPreNextNews(index + 1);
         return nextNews;
     }
+
+    @Override
+    public Integer delNewsByNewsId(Integer newsId) {
+        return newsDao.delNewsByNewsId(newsId);
+    }
 }
