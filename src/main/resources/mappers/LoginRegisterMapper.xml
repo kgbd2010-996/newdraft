@@ -71,8 +71,8 @@
         insert into nd_userinfo (user_id) values (#{userId})
     </insert>
 
-    <insert id="addUserIdToFirms" parameterType="Firms">
-        insert into nd_firms (firms_id) values (#{firms.firmsId})
+    <insert id="addUserIdToFirms">
+        insert into nd_firms (firms_id) values (#{firmsId})
     </insert>
 
 
